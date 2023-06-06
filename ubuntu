@@ -1,0 +1,135 @@
+#include <iostream>
+#include <cstring>
+
+struct node {
+    int value;
+    node* next;
+};
+
+class hashing {
+public:
+    hashing() {
+        for (int i = 0; i < 10; i++) {
+            HashTable[i] = nullptr;
+        }
+    }
+
+    int HashFunction(int value) {
+        return (value % 10);
+    }
+
+    node* create_node(int x) {
+        node* temp = new node;
+        temp->next = nullptr;
+        temp->value = x;
+        return temp;
+    }
+
+    void display() {
+        for (int i = 0; i < 10; i++) {
+            node* temp = HashTable[i];
+            std::cout << "a[" << i << "]";
+            while (temp != nullptr) {
+                std::cout << "->" << temp->value;
+                temp = temp->next;
+            }
+            std::cout << "\n";
+        }
+    }
+
+    int searchElement(int value) {
+        bool flag = false;
+        int hash_val = HashFunction(value);
+        node* entry = HashTable[hash_val];
+        std::cout << "\nElement found at: ";
+        while (entry != nullptr) {
+            if (entry->value == value) {
+                std::cout << hash_val << " : " << entry->value << std::endl;
+                flag = true;
+            }
+            entry = entry->next;
+        }
+        if (!flag) {
+            return -1;
+        }
+    }
+
+    void deleteElement(int value) {
+        int hash_val = HashFunction(value);
+        node* entry = HashTable[hash_val];
+        if (entry == nullptr) {
+            std::cout << "No Element found";
+            return;
+        }
+
+        if (entry->value == value) {
+            HashTable[hash_val] = entry->next;
+            delete entry;
+            return;
+        }
+
+        while (entry->next != nullptr && entry->next->value != value) {
+            entry = entry->next;
+        }
+
+        if (entry->next != nullptr) {
+            node* temp = entry->next;
+            entry->next = temp->next;
+            delete temp;
+        }
+    }
+
+    void insertElement(int value) {
+        int hash_val = HashFunction(value);
+        node* head = create_node(value);
+
+        if (HashTable[hash_val] == nullptr) {
+            HashTable[hash_val] = head;
+        }
+        else {
+            node* temp = HashTable[hash_val];
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            temp->next = head;
+        }
+    }
+
+private:
+    node* HashTable[10];
+};
+
+int main() {
+    int ch;
+    int data, search, del;
+    hashing h;
+    do {
+        std::cout << "\nTelephone : \n1.Insert\n2.Display\n3.Search\n4.Delete\n5.Exit\n";
+        std::cin >> ch;
+        switch (ch) {
+            case 1:
+                std::cout << "\nEnter phone no. to be inserted: ";
+                std::cin >> data;
+                h.insertElement(data);
+                break;
+            case 2:
+                h.display();
+                break;
+            case 3:
+                std::cout << "\nEnter the no. to be searched: ";
+                std::cin >> search;
+                if (h.searchElement(search) == -1) {
+                    std::cout << "No element found at key.";
+                    continue;
+                }
+                break;
+            case 4:
+                std::cout << "\nEnter the phone no. to be deleted: ";
+                std::cin >> del;
+                h.deleteElement(del);
+                std::cout << "Phone no. Deleted" << std::endl;
+                break;
+        }
+    } while (ch != 5);
+    return 0;
+}
