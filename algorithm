@@ -1,0 +1,30 @@
+Define a struct called node that represents a node in the linked list. It contains an integer value and a pointer to the next node.
+
+Define a class called hashing that encapsulates the hashing functionality.
+
+In the hashing class, declare a private member variable HashTable as an array of node* pointers. Initialize all elements of HashTable to nullptr in the constructor.
+
+Implement a hash function HashFunction that takes a value as input and returns its hash value (value % 10).
+
+Implement a method create_node that takes a value as input and creates a new node with the given value. Return a pointer to the newly created node.
+
+Implement a method display that iterates over the hash table and prints the elements in each linked list.
+
+Implement a method searchElement that takes a value as input and searches for it in the hash table. Print the hash value and value of the node if found. Return -1 if not found.
+
+Implement a method deleteElement that takes a value as input and deletes the corresponding node from the hash table, if present.
+
+Implement a method insertElement that takes a value as input and inserts it into the hash table. If the index is empty, create a new node and set it as the head. Otherwise, traverse the linked list at the index and append the new node at the end.
+
+In the main function, create an instance of the hashing class.
+
+Display a menu of options to the user: Insert, Display, Search, Delete, and Exit.
+
+Based on the user's input, perform the corresponding operation using the methods provided by the hashing class.
+
+Continue the loop until the user chooses to exit.
+
+
+# conclusion
+Thus we have implemented hashing and collision handling & Make use of a 
+hash table implementation to quickly look up client‘s telephone number.
